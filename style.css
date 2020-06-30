@@ -1,0 +1,236 @@
+:root {
+    display: border-box;
+}
+
+h1,
+p {
+    text-align: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#gameBoard {
+    display: flex;
+    height: 600px;
+    width: 800px;
+    background-color: yellow;
+    margin: 0 auto;
+}
+
+.column {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column-reverse;
+    align-content: stretch;
+}
+
+.row {
+    border-radius: 50%;
+    flex-grow: 1;
+    background-color: blue;
+    justify-content: stretch;
+    margin: 10px;
+}
+
+.column {}
+
+.column {}
+
+.row {}
+
+.column {}
+
+.column {}
+
+.row {}
+
+.column {}
+
+.column {}
+
+.row {}
+
+.column {}
+
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+row {}
+.column {}
+.column {}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.row {}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
+.column {}
+
+}
+.column {}
+.row {}
