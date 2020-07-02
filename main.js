@@ -57,8 +57,8 @@ const verticalWinner = function(model) {
 }
 
 const horizontalWinner = function(model) {
-    for (let row = 0; row < model.length; row++) { //model.length-3 will test all rows except the last 3, since there can be no vertical wins beginning in those rows -Drew 7/1
-        for (let column = 0; column < model[row].length - 3; column++) { //function runs through every element in the row, because every column can hold a vertical win
+    for (let row = 0; row < model.length; row++) { //for horizontal, we can go through all rows
+        for (let column = 0; column < model[row].length - 3; column++) { //but all but the last 3 cells in that row, because a horizontal win can't begin in the last 3 cells of each row
             if (model[row][column] > 0 &&
                 model[row][column] === model[row][column + 1] &&
                 model[row][column] === model[row][column + 2] &&
@@ -72,8 +72,8 @@ const horizontalWinner = function(model) {
 }
 
 const diagDownWinner = function(model) {
-    for (let row = 0; row < model.length - 3; row++) { //model.length-3 will test all rows except the last 3, since there can be no vertical wins beginning in those rows -Drew 7/1
-        for (let column = 0; column < model[row].length - 3; column++) { //function runs through every element in the row, because every column can hold a vertical win
+    for (let row = 0; row < model.length - 3; row++) { //model.length-3 will test all rows except the last 3, since there can be no diagonal down wins beginning in those rows -Drew 7/1
+        for (let column = 0; column < model[row].length - 3; column++) { //since it's testing diagonally, there can also be no wins beginning in the last 3 cells of each row
             if (model[row][column] > 0 &&
                 model[row][column] === model[row + 1][column + 1] &&
                 model[row][column] === model[row + 2][column + 2] &&
@@ -87,8 +87,8 @@ const diagDownWinner = function(model) {
 }
 
 const diagUpWinner = function(model) {
-    for (let row = 3; row < model.length; row++) { //model.length-3 will test all rows except the last 3, since there can be no vertical wins beginning in those rows -Drew 7/1
-        for (let column = 0; column < model[row].length - 3; column++) { //function runs through every element in the row, because every column can hold a vertical win
+    for (let row = 3; row < model.length; row++) { //row starts at 3, because you can not have any diagonal up winning combos starting in the first 3 rows
+        for (let column = 0; column < model[row].length - 3; column++) { //but we do not need to test the last 3 cells of each row, because there can not be a diagonal up winning combo starting in those columns
             if (model[row][column] > 0 &&
                 model[row][column] === model[row - 1][column + 1] &&
                 model[row][column] === model[row - 2][column + 2] &&
@@ -101,14 +101,15 @@ const diagUpWinner = function(model) {
     return false
 }
 
-function testAllWinners(model) {
+function testAllWinners(model) { //combines all winning tests, based on an input of model (in our case, the model will be boardModel, which is what we're editing with each move)
     if (horizontalWinner(model) ||
         verticalWinner(model) ||
         diagDownWinner(model) ||
         diagUpWinner(model)) {
         alert(`Player ${currentPlayer} wins!!`)
+        return true
     }
-
+    return false
 }
 
 let gameBoard = document.getElementById('gameBoard')
@@ -116,54 +117,47 @@ let column = document.getElementsByClassName('column')
 let rows = document.getElementsByClassName('row')
 let currentPlayer = 'red'
 let discsDropped = 0;
-let redDisc = document.createElement('div')
-redDisc.className = 'redDisc'
-let blackDisc = document.createElement('div')
-blackDisc.className = 'blackDisc'
-let numberOfDiscsDropped = 0
-let redClone = redDisc.cloneNode(true)
-let blackClone = blackDisc.cloneNode(true)
 let playerSpan = document.getElementById('playerSpan')
 playerSpan.textContent = currentPlayer
 
 
 const buildBoard = function(model) {
-    let rowCount = 0
-    let cellCount = 0
+    let rowCount = 0 //keeps track of how many rows are in the game
+    let cellCount = 0 //keeps track of how many cells/columns are in each row
     for (let row of model) {
-        cellCount = 0
+        cellCount = 0 //on a new row, the cell/column count will reset to 0
         let newRow = gameBoard.insertRow(-1)
         newRow.className = `row`
-        newRow.id = `row${rowCount}`
+        newRow.id = `row${rowCount}` //this will help later when we need to extract which row we click on
         for (let cell of row) {
             let newCell = newRow.insertCell(-1)
             newCell.addEventListener('click', handleClick)
             newCell.id = `row${rowCount}`
             if (cell === 0) {
-                newCell.className = 'cell blue'
+                newCell.className = 'cell blue' //two class names in each of these, so that the cells will be able to be styled based on general 'cell' styling, as well as the specific color
             } else if (cell === 1) {
                 newCell.className = 'cell red'
             } else if (cell === 2) {
                 newCell.className = 'cell black'
             }
-            cellCount++
+            cellCount++ //increment cell/column count in the inner for loop so that it will increase with each row element
         }
-        rowCount++
+        rowCount++ //increment row each time the outer loop starts a new row
     }
 }
 buildBoard(boardModel)
     //     //Hardcoded AF, but works
 
-let col0 = document.querySelector('#col0')
-let col1 = document.querySelector("#col1")
-let col2 = document.querySelector("#col2")
-let col3 = document.querySelector("#col3")
-let col4 = document.querySelector("#col4")
-let col5 = document.querySelector("#col5")
-let col6 = document.querySelector("#col6")
+// let col0 = document.querySelector('#col0')
+// let col1 = document.querySelector("#col1")
+// let col2 = document.querySelector("#col2")
+// let col3 = document.querySelector("#col3")
+// let col4 = document.querySelector("#col4")
+// let col5 = document.querySelector("#col5")
+// let col6 = document.querySelector("#col6")
 
-let blackPiece = document.querySelector("#blackPiece")
-let redPiece = document.querySelector("#redPiece")
+// let blackPiece = document.querySelector("#blackPiece")
+// let redPiece = document.querySelector("#redPiece")
 let a = 5
 let b = 0
 let c = 5
@@ -179,8 +173,6 @@ let n = 5
 let o = 5
 let p = 6
 
-// col0.addEventListener("click", col0clickHandler)
-
 function col0clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[a][b] = 1
@@ -195,7 +187,6 @@ function col0clickHandler() {
         switchToNextPlayer()
     }
 }
-// col1.addEventListener("click", col1clickHandler)
 
 function col1clickHandler() {
     if (currentPlayer === 'red') {
@@ -211,7 +202,6 @@ function col1clickHandler() {
         switchToNextPlayer()
     }
 }
-// col2.addEventListener("click", col2clickHandler)
 
 function col2clickHandler() {
     if (currentPlayer === 'red') {
@@ -226,7 +216,6 @@ function col2clickHandler() {
         switchToNextPlayer()
     }
 }
-// col3.addEventListener("click", col3clickHandler)
 
 function col3clickHandler() {
     if (currentPlayer === 'red') {
@@ -241,7 +230,6 @@ function col3clickHandler() {
         switchToNextPlayer()
     }
 }
-// col4.addEventListener("click", col4clickHandler)
 
 function col4clickHandler() {
     if (currentPlayer === 'red') {
@@ -257,7 +245,6 @@ function col4clickHandler() {
         switchToNextPlayer()
     }
 }
-// col5.addEventListener("click", col5clickHandler)
 
 function col5clickHandler() {
     if (currentPlayer === 'red') {
@@ -272,7 +259,6 @@ function col5clickHandler() {
         switchToNextPlayer()
     }
 }
-// col6.addEventListener("click", col6clickHandler)
 
 function col6clickHandler() {
     if (currentPlayer === 'red') {
@@ -310,51 +296,17 @@ const switchToNextPlayer = function() {
         currentPlayer = 'red'
         document.body.style.backgroundColor = 'darkred'
     } else { alert('player Unknown') }
-    //     TODO: Toggle currentPlayer variable 1<-->2
-    playerSpan.textContent = currentPlayer
-    discsDropped++
-    console.log(`${discsDropped} discs dropped`)
-    if (discsDropped === 42 &&
-        !testAllWinners()) {
+    playerSpan.textContent = currentPlayer //updates player indicator at the top of the board to show who's turn it is
+    discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
+    if (discsDropped === 42 && //if 42 discs have been placed, there are no more moves
+        (testAllWinners() === false)) { //if the above is true, and there are no winners, send the following alert --this isn't working right yet.
         alert("It's a tie!")
     }
 }
 
-const displayMessage = function(message) {
-    // Clear out the message div
-    // Add new message to div
-}
-
-const isColumnFull = function(colNum) {
-
-    // TODO: Look at the boardModel to determine if col is full
-    return false // or true
-}
-
-
-const isGameOver = function(model) {
-    // Check for a win
-    // Check for a tie (numberofDiscsDropped === 42)
-    return false // false, "tie", "win"
-}
-
-const displayTieMessage = function() {
-    displayMessage("Tie game!")
-}
-
-const displayWinMessage = function() {
-    displayMessage("Winner is _____")
-}
-
-
-
 function handleClick(event) {
-    let column = event.target.cellIndex
-    let row = event.currentTarget.id.slice(-1)
-    console.log('column:' + column)
-    console.log('row:' + row)
-    console.log(`array location [${column},${row}]`)
-    switch (column) {
+    let column = event.target.cellIndex //since it is structured as a table, each row element has an available index to see which column/cell of that row you have clicked
+    switch (column) { //this switch statement takes the column number we identified with the previous variable, and runs the applicable click handler based on which column the clicked element resides in
         case 0:
             col0clickHandler();
             break;
@@ -376,6 +328,6 @@ function handleClick(event) {
         case 6:
             col6clickHandler();
     }
-    gameBoard.innerHTML = ''
-    buildBoard(boardModel)
+    gameBoard.innerHTML = '' //removes current board to make room for updated board
+    buildBoard(boardModel) //rebuilds board with current disc placements
 }
