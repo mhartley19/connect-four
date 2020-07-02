@@ -48,7 +48,6 @@ const verticalWinner = function(model) {
                 model[row][column] === model[row + 1][column] &&
                 model[row][column] === model[row + 2][column] &&
                 model[row][column] === model[row + 3][column]) {
-                console.log('win')
                 return true
             }
         }
@@ -63,7 +62,6 @@ const horizontalWinner = function(model) {
                 model[row][column] === model[row][column + 1] &&
                 model[row][column] === model[row][column + 2] &&
                 model[row][column] === model[row][column + 3]) {
-                console.log('win')
                 return true
             }
         }
@@ -78,7 +76,6 @@ const diagDownWinner = function(model) {
                 model[row][column] === model[row + 1][column + 1] &&
                 model[row][column] === model[row + 2][column + 2] &&
                 model[row][column] === model[row + 3][column + 3]) {
-                console.log('win')
                 return true
             }
         }
@@ -93,7 +90,6 @@ const diagUpWinner = function(model) {
                 model[row][column] === model[row - 1][column + 1] &&
                 model[row][column] === model[row - 2][column + 2] &&
                 model[row][column] === model[row - 3][column + 3]) {
-                console.log('win')
                 return true
             }
         }
@@ -106,10 +102,9 @@ function testAllWinners(model) { //combines all winning tests, based on an input
         verticalWinner(model) ||
         diagDownWinner(model) ||
         diagUpWinner(model)) {
-        alert(`Player ${currentPlayer} wins!!`)
+        setTimeout(alert, 100, `Player ${currentPlayer} wins!!`)
         return true
     }
-    return false
 }
 
 let gameBoard = document.getElementById('gameBoard')
@@ -177,12 +172,13 @@ function col0clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[a][b] = 1
         a--
-        console.log(a)
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[a][b] = 2
         a--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
@@ -192,12 +188,14 @@ function col1clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[c][d] = 1
         c--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
 
     } else if (currentPlayer === 'black') {
         boardModel[c][d] = 2
         c--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
@@ -207,11 +205,13 @@ function col2clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[e][f] = 1
         e--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[e][f] = 2
         e--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
@@ -221,11 +221,13 @@ function col3clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[g][h] = 1
         g--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[g][h] = 2
         g--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
@@ -235,12 +237,13 @@ function col4clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[k][l] = 1
         k--
-        playerSpan.textContent = currentPlayer
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[k][l] = 2
         k--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
@@ -250,11 +253,13 @@ function col5clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[m][n] = 1
         m--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[m][n] = 2
         m--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
@@ -264,15 +269,18 @@ function col6clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[o][p] = 1
         o--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[o][p] = 2
         o--
+        testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
 }
+
 
 const resetBoard = function(model) {
     let cells = document.getElementsByClassName('cell');
@@ -284,7 +292,7 @@ const resetBoard = function(model) {
             element = 0
         }
     }
-    currentPlayer = 1
+    currentPlayer = 'red'
 }
 
 
@@ -298,14 +306,19 @@ const switchToNextPlayer = function() {
     } else { alert('player Unknown') }
     playerSpan.textContent = currentPlayer //updates player indicator at the top of the board to show who's turn it is
     discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
+}
+
+function testForTie() {
     if (discsDropped === 42 && //if 42 discs have been placed, there are no more moves
-        (testAllWinners() === false)) { //if the above is true, and there are no winners, send the following alert --this isn't working right yet.
+        (!testAllWinners(boardModel))) { //if the above is true, and there are no winners, send the following alert --this isn't working right yet.
         alert("It's a tie!")
+        return true
     }
 }
 
 function handleClick(event) {
     let column = event.target.cellIndex //since it is structured as a table, each row element has an available index to see which column/cell of that row you have clicked
+    console.log(event.target.id)
     switch (column) { //this switch statement takes the column number we identified with the previous variable, and runs the applicable click handler based on which column the clicked element resides in
         case 0:
             col0clickHandler();
