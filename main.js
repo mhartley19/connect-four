@@ -1,43 +1,10 @@
-const boardModel = [
+let boardModel = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
-]
-
-const winVertModel = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0],
-]
-const winHorizModel = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-]
-
-const winDiagDownModel = [
-    [1, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-]
-
-const winDiagUpModel = [
-    [1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 1, 0, 0],
-    [0, 1, 0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0],
 ]
 
 
@@ -97,12 +64,20 @@ const diagUpWinner = function(model) {
     return false
 }
 
+function testForTie() {
+    if (discsDropped === 42 && //if 42 discs have been placed, there are no more moves
+        (!testAllWinners(boardModel))) { //if the above is true, and there are no winners, send the following alert --this isn't working right yet. EDIT!!!! IT WORKS!!! -DREW 7/2/2020
+        setTimeout(displayText, 100, "It's a tie!")
+        return true
+    }
+}
+
 function testAllWinners(model) { //combines all winning tests, based on an input of model (in our case, the model will be boardModel, which is what we're editing with each move)
     if (horizontalWinner(model) ||
         verticalWinner(model) ||
         diagDownWinner(model) ||
         diagUpWinner(model)) {
-        setTimeout(alert, 100, `Player ${currentPlayer} wins!!`)
+        setTimeout(displayText, 100, `Player ${currentPlayer} wins!!`)
         return true
     }
 }
@@ -141,18 +116,48 @@ const buildBoard = function(model) {
     }
 }
 buildBoard(boardModel)
-    //     //Hardcoded AF, but works
 
-// let col0 = document.querySelector('#col0')
-// let col1 = document.querySelector("#col1")
-// let col2 = document.querySelector("#col2")
-// let col3 = document.querySelector("#col3")
-// let col4 = document.querySelector("#col4")
-// let col5 = document.querySelector("#col5")
-// let col6 = document.querySelector("#col6")
+let cells = document.getElementsByClassName('cell');
+const resetBoard = function(model) {
+    for (let cell of cells) {
+        cell.className = 'cell blue'
+    }
+    boardModel = [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+        ]
+        // for (let row of model) {
+        //     for (let spot of row) {
+        //         spot = 0
+        //     }
+        // }
 
-// let blackPiece = document.querySelector("#blackPiece")
-// let redPiece = document.querySelector("#redPiece")
+    a = 5
+    b = 0
+    c = 5
+    d = 1
+    e = 5
+    f = 2
+    g = 5
+    h = 3
+    k = 5
+    l = 4
+    m = 5
+    n = 5
+    o = 5
+    p = 6
+
+    currentPlayer = 'red'
+    displayText(currentPlayer)
+    document.body.style.backgroundColor = 'darkred'
+}
+
+
+//     //Hardcoded AF, but works
 let a = 5
 let b = 0
 let c = 5
@@ -172,12 +177,14 @@ function col0clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[a][b] = 1
         a--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[a][b] = 2
         a--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
@@ -188,6 +195,7 @@ function col1clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[c][d] = 1
         c--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
@@ -195,6 +203,7 @@ function col1clickHandler() {
     } else if (currentPlayer === 'black') {
         boardModel[c][d] = 2
         c--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
@@ -205,12 +214,14 @@ function col2clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[e][f] = 1
         e--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[e][f] = 2
         e--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
@@ -221,12 +232,14 @@ function col3clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[g][h] = 1
         g--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[g][h] = 2
         g--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
@@ -237,12 +250,14 @@ function col4clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[k][l] = 1
         k--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[k][l] = 2
         k--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
@@ -253,12 +268,14 @@ function col5clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[m][n] = 1
         m--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[m][n] = 2
         m--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
@@ -269,32 +286,19 @@ function col6clickHandler() {
     if (currentPlayer === 'red') {
         boardModel[o][p] = 1
         o--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     } else if (currentPlayer === 'black') {
         boardModel[o][p] = 2
         o--
+        discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
         testForTie()
         testAllWinners(boardModel)
         switchToNextPlayer()
     }
 }
-
-
-const resetBoard = function(model) {
-    let cells = document.getElementsByClassName('cell');
-    for (cell of cells) {
-        cell.id = 'blue'
-    }
-    for (let row of model) {
-        for (let element of row) {
-            element = 0
-        }
-    }
-    currentPlayer = 'red'
-}
-
 
 const switchToNextPlayer = function() {
     if (currentPlayer === 'red') {
@@ -304,21 +308,16 @@ const switchToNextPlayer = function() {
         currentPlayer = 'red'
         document.body.style.backgroundColor = 'darkred'
     } else { alert('player Unknown') }
-    playerSpan.textContent = currentPlayer //updates player indicator at the top of the board to show who's turn it is
-    discsDropped++ //updates the number of discs dropped, which should help with our tie indicator
+    displayText(currentPlayer) //updates player indicator at the top of the board to show who's turn it is
 }
 
-function testForTie() {
-    if (discsDropped === 42 && //if 42 discs have been placed, there are no more moves
-        (!testAllWinners(boardModel))) { //if the above is true, and there are no winners, send the following alert --this isn't working right yet.
-        alert("It's a tie!")
-        return true
-    }
+function displayText(text) {
+    playerSpan.textContent = text
 }
+
 
 function handleClick(event) {
     let column = event.target.cellIndex //since it is structured as a table, each row element has an available index to see which column/cell of that row you have clicked
-    console.log(event.target.id)
     switch (column) { //this switch statement takes the column number we identified with the previous variable, and runs the applicable click handler based on which column the clicked element resides in
         case 0:
             col0clickHandler();
@@ -344,3 +343,36 @@ function handleClick(event) {
     gameBoard.innerHTML = '' //removes current board to make room for updated board
     buildBoard(boardModel) //rebuilds board with current disc placements
 }
+
+const winVertModel = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+]
+const winHorizModel = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+]
+
+const winDiagDownModel = [
+    [1, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+]
+
+const winDiagUpModel = [
+    [1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 1, 0, 0],
+    [0, 1, 0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0],
+]
