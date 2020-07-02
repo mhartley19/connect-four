@@ -1,236 +1,110 @@
 :root {
     display: border-box;
+    color: white;
+    font-weight: bold;
+}
+
+h1 {
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 h1,
 p {
     text-align: center;
+    margin: 0;
+}
+
+#playerIndicator {
+    margin: 10px;
 }
 
 body {
     display: flex;
     flex-direction: column;
+    background-color: darkred;
 }
 
 #gameBoard {
     display: flex;
+    flex-direction: column;
     height: 600px;
     width: 800px;
     background-color: yellow;
     margin: 0 auto;
 }
 
+.blackDisc {
+    background-color: black;
+    flex-grow: 1;
+    border-radius: 50%;
+}
+
+.redDisc {
+    background-color: red;
+    flex-grow: 1;
+    border-radius: 50%;
+}
+
 .column {
     display: flex;
     flex-grow: 1;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-content: stretch;
 }
 
-.row {
-    border-radius: 50%;
-    flex-grow: 1;
+.cell {
     background-color: blue;
+    display: flex;
+    flex-grow: 1;
     justify-content: stretch;
+    border-radius: 50%;
     margin: 10px;
 }
 
-.column {}
-
-.column {}
-
-.row {}
-
-.column {}
-
-.column {}
-
-.row {}
-
-.column {}
-
-.column {}
-
-.row {}
-
-.column {}
-
-
+table {
+    display: flex;
+    flex-grow: 1;
 }
-.column {}
-.row {}
-.column {}
 
+tr {
+    display: flex;
+    flex-grow: 1;
 }
-.column {}
-.row {}
-row {}
-.column {}
-.column {}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
 
+tbody {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
-.column {}
-.row {}
-.column {}
 
+.row {
+    flex-grow: 1;
 }
-.column {}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
 
+#playerDisc {
+    width: 100px;
+    height: 50px;
+    top: 40%;
+    display: flex;
+    align-self: center;
+    margin: 20px;
 }
-.column {}
-.row {}
-.column {}
 
+.black {
+    background-color: black;
+    flex-grow: 1;
+    border-radius: 50%;
 }
-.column {}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
 
+.red {
+    background-color: red;
+    flex-grow: 1;
+    border-radius: 50%;
 }
-.column {}
-.row {}
-.column {}
 
+.blue {
+    background-color: blue;
+    flex-grow: 1;
+    border-radius: 50%;
 }
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.row {}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
-.column {}
-
-}
-.column {}
-.row {}
